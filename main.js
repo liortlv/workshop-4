@@ -1,49 +1,68 @@
 class AsyncGame {
-    constructor() {
-        this.API_BASE = 'https://u-workshops.herokuapp.com'
-    }
+   constructor() {
+      this.API_BASE = "https://u-workshops.herokuapp.com";
+   }
 
-    /* 
+   /* 
         Note: most of these methods will use the `fetch` API
         It's ok if you don't fully understand it yet! You can think of it as a 'blackbox' for now
     */
 
-    async createUser() {
-        // POST request to the /new_user endpoint
-    }
+   async createUser(myName) {
+      // POST request to the /new_user endpoint
+      // Fetch questions from API
 
-    async addToQABank() {
-        // POST request to /new_qa
-    }
+      const settings = {
+         method: "POST",
+         headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+         },
+         body: JSON.stringify({ name: myName }),
+      };
+      try {
+         const fetchResponse = await fetch(
+            `${this.API_BASE}/new_user`,
+            settings
+         );
+         const data = await fetchResponse.json();
+         console.log(data);
+         return data;
+      } catch (e) {
+         return e;
+      }
+   }
 
-    async getAllQuestions() {
-        // GET request to /all_questions
-        // Note! More questions will be added as other students progress in this workshop.
-        // Ask around to see who's added new questions!
-    }
+   async addToQABank() {
+      // POST request to /new_qa
+   }
 
-    async answerQuestion() {
-        // POST request to /answer_question
-        // Note! In the response of this request you'll see whether your answer was correct or not.
-        // If you answered incorrectly, try again or bring it up with the user who posted the question!
-    }
+   async getAllQuestions() {
+      // GET request to /all_questions
+      // Note! More questions will be added as other students progress in this workshop.
+      // Ask around to see who's added new questions!
+   }
 
-    async getAnswerSubmissions() {
-        // GET request to /answer_submissions
-    }
+   async answerQuestion() {
+      // POST request to /answer_question
+      // Note! In the response of this request you'll see whether your answer was correct or not.
+      // If you answered incorrectly, try again or bring it up with the user who posted the question!
+   }
 
-    async getUsers(){
-        // GET request to /the_users
-    }
+   async getAnswerSubmissions() {
+      // GET request to /answer_submissions
+   }
 
-    async calculateUserScores() {
-        // +1 points for questions you've answered correctly
-        // -1 points for questions you've answered incorrectly
+   async getUsers() {
+      // GET request to /the_users
+   }
 
-        // This is the most "complicated" method - but you've got this ;)
-
-        // Guidelines for this part (ignore if you want an extra challenge!)
-        /*
+   async calculateUserScores() {
+      // +1 points for questions you've answered correctly
+      // -1 points for questions you've answered incorrectly
+      // This is the most "complicated" method - but you've got this ;)
+      // Guidelines for this part (ignore if you want an extra challenge!)
+      /*
             - Get the users
             - Get the submissions
             - Create an `scores` object
@@ -59,10 +78,11 @@ class AsyncGame {
                 Darwin: -1
             }
         */
-    }
+   }
 }
 
-const game = new AsyncGame()
+const game = new AsyncGame();
+let data = game.createUser("lior");
 // Remember the server is unexpected, it might return an error!
 
 // Example of running the game:
